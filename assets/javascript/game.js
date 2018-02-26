@@ -47,17 +47,17 @@ var button = ''
 // Player's character
 var yourFighter = {}
 
-function testFunction() {
-    console.log(fighters);
-    fighters.splice($.inArray(yourFighter, fighters),1);
-    console.log("Your fighter is:");
-    console.log(yourFighter);
-    console.log(fighters);
-}
-
 function fightersSwap(){
+    // Removes the player's choice from the 'fighters' array
+    fighters.splice($.inArray(yourFighter, fighters),1);
+    // Adds the player's choice to the 'yourCharacter' div and changes its id (not sure its id needs to change though?)
+    $("#yourCharacter").append($(yourFighter.button))
+    $(yourFighter.button).attr('id', 'player-' + yourFighter.idButton)
+    // Sorts through the remaining fighters in the 'fighters' array and appends them to the 'enemies' element
     for (var i = 0; i < fighters.length; i++) {
         $("#enemies").append($(fighters[i].button))
+        // Changes fighter button id to 'enemy-' + their previous id, so they won't follow the previous button rules for "#buttonx"
+        $(fighters[i].button).attr('id', 'enemy-' + fighters[i].idButton)
     }
 }
 
@@ -65,21 +65,17 @@ function fightersSwap(){
 // Fighter button
 $("#button1").on("click", function () {
     yourFighter = fighter1;
-    testFunction();
     fightersSwap();
 })
 $("#button2").on("click",function () {
     yourFighter = fighter2;
-    testFunction();
     fightersSwap();
 })
 $("#button3").on("click",function () {
     yourFighter = fighter3;
-    testFunction();
     fightersSwap();
 })
 $("#button4").on("click",function () {
     yourFighter = fighter4;
-    testFunction();
     fightersSwap();
 })
