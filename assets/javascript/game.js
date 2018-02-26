@@ -7,7 +7,7 @@ var fighter1 = {
     AP: 5,
     CAP: 5,
     button : '#button1',
-    idButton : 'button1'
+    sortId : 'button1'
 }
 
 var fighter2 = {
@@ -16,7 +16,7 @@ var fighter2 = {
     AP: 8,
     CAP: 10,
     button : '#button2',
-    idButton : 'button2'
+    sortId : 'button2'
 }
 
 var fighter3 = {
@@ -25,7 +25,7 @@ var fighter3 = {
     AP: 10,
     CAP: 15,
     button : '#button3',
-    idButton : 'button3'
+    sortId : 'button3'
 }
 
 var fighter4 = {
@@ -34,48 +34,88 @@ var fighter4 = {
     AP: 12,
     CAP: 20,
     button : '#button4',
-    idButton : 'button4'
+    sortId : 'button4'
 }
 
-// List of available fighters - also determines who to move to enemy fighters
+// List of initial fighters - will be sorted through to determine who to move to enemies
 var fighters = [fighter1, fighter2, fighter3, fighter4]
-var enemies = []
-
-// Identify button pressed
-var button = ''
 
 // Player's character
 var yourFighter = {}
 
-function fightersSwap(){
+// Defender
+var defender = {}
+
+// Determines if a defender has been chosen or not
+var defenderChosen = false
+
+
+function fighterSort(){
     // Removes the player's choice from the 'fighters' array
     fighters.splice($.inArray(yourFighter, fighters),1);
     // Adds the player's choice to the 'yourCharacter' div and changes its id (not sure its id needs to change though?)
     $("#yourCharacter").append($(yourFighter.button))
-    $(yourFighter.button).attr('id', 'player-' + yourFighter.idButton)
+    $(yourFighter.button).attr('id', 'player-' + yourFighter.sortId)
     // Sorts through the remaining fighters in the 'fighters' array and appends them to the 'enemies' element
     for (var i = 0; i < fighters.length; i++) {
         $("#enemies").append($(fighters[i].button))
         // Changes fighter button id to 'enemy-' + their previous id, so they won't follow the previous button rules for "#buttonx"
-        $(fighters[i].button).attr('id', 'enemy-' + fighters[i].idButton)
+        $(fighters[i].button).attr('id', 'enemy-' + fighters[i].sortId)
     }
 }
 
+function selectDefender(){
 
-// Fighter button
-$("#button1").on("click", function () {
+}
+
+
+
+// Buttons
+// This code is trash and you should totally fix it later
+
+// Functionality depending on button id
+// enemy-button ids sort the chosen enemy into the Defender element
+    // Fighter 1
+$(document).on('click', "#button1", function() {
     yourFighter = fighter1;
-    fightersSwap();
-})
-$("#button2").on("click",function () {
+    fighterSort();
+}).on('click', "#enemy-button1", function() {
+    if (defenderChosen === false) {
+    defender = fighter1;
+    $("#defender").append($("#enemy-button1"));
+    defenderChosen = true;
+    }
+
+    // Fighter 2
+}).on('click', "#button2", function() {
     yourFighter = fighter2;
-    fightersSwap();
-})
-$("#button3").on("click",function () {
+    fighterSort();
+}).on('click', "#enemy-button2", function() {
+    if (defenderChosen === false) {
+    defender = fighter2;
+    $("#defender").append($("#enemy-button2"));
+    defenderChosen = true;
+    }
+
+    // Fighter 3
+}).on('click', "#button3", function() {
     yourFighter = fighter3;
-    fightersSwap();
-})
-$("#button4").on("click",function () {
+    fighterSort();
+}).on('click', "#enemy-button3", function() {
+    if (defenderChosen === false) {
+    defender = fighter3;
+    $("#defender").append($("#enemy-button3"));
+    defenderChosen = true;
+    }
+
+    // Fighter 4
+}).on('click', "#button4", function() {
     yourFighter = fighter4;
-    fightersSwap();
-})
+    fighterSort();
+}).on('click', "#enemy-button4", function() {
+    if (defenderChosen === false) {
+    defender = fighter4;
+    $("#defender").append($("#enemy-button4"));
+    defenderChosen = true;
+    }
+});
