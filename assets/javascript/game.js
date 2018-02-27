@@ -2,10 +2,17 @@
 
     // Music - didn't work before because it was trying to play the audio before it was loaded.  The function below works around that.
     var audio = new Audio("assets/music/HatenoDay.mp3");
+    var intro = new Audio("assets/music/intro.mp3");
 
-    audio.onloadeddata = function () {
-        audio.play();
+    intro.onloadeddata = function () {
+        intro.play();
     }
+
+    intro.addEventListener('ended', function(){
+        audio.play();
+    });
+    // Sound when 'attack' is clicked <-- not sure I want to include this yet
+    // var sword = new Audio("assets/music/attack.mp3");
 
 
     // Establish variables
@@ -45,7 +52,7 @@
     }
 
     var fighter4 = {
-        name: 'Ganon',
+        name: 'Guardian',
         HP: 140,
         AP: 0,
         APIncrement: 12,
@@ -71,7 +78,6 @@
     // On/off switch for attack button
     var gameplay = true;
 
-
     // Present inital fighter HP
     for (var i = 0; i < fighters.length; i++) {
         $(fighters[i].healthID).text("HP: " + fighters[i].HP)
@@ -93,6 +99,7 @@
             // Changes fighter button id to 'enemy-' + their previous id, so they won't follow the previous button rules for "#buttonx"
             $(fighters[i].button).attr('id', 'enemy-' + fighters[i].sortId)
         }
+        $('#characterSelect').remove()
     }
 
     // Plays out the fight of the game
@@ -100,6 +107,7 @@
         if (gameplay === true) {
             // Check if player fighter and defender have been chosen
             if (defenderChosen === true) {
+                sword.play();
                 // $(fighters[i].button).attr('id', 'enemy-' + fighters[i].sortId) <-- not sure why this is here, think it can be removed
                 // First reduce enemy HP and increase player AP
                 yourFighter.AP += yourFighter.APIncrement;
@@ -119,6 +127,9 @@
                         $("#combatlog").html("You have defeated " + defender.name + "! Choose another enemy to fight");
                     } else {
                         $("#combatlog").html("You win!");
+                        console.log(fighter1)
+                        console.log(fighter2)
+                        console.log(fighter3)
                     }
                 }
 
