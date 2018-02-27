@@ -18,7 +18,8 @@
         APIncrement: 5,
         CAP: 5,
         button: '#button1',
-        sortId: 'button1'
+        sortId: 'button1',
+        healthID: '#fighter1HP'
     }
 
     var fighter2 = {
@@ -28,7 +29,8 @@
         APIncrement: 8,
         CAP: 10,
         button: '#button2',
-        sortId: 'button2'
+        sortId: 'button2',
+        healthID: '#fighter2HP'
     }
 
     var fighter3 = {
@@ -38,7 +40,8 @@
         APIncrement: 10,
         CAP: 15,
         button: '#button3',
-        sortId: 'button3'
+        sortId: 'button3',
+        healthID: '#fighter3HP'
     }
 
     var fighter4 = {
@@ -48,7 +51,8 @@
         APIncrement: 12,
         CAP: 20,
         button: '#button4',
-        sortId: 'button4'
+        sortId: 'button4',
+        healthID: '#fighter4HP'
     }
 
     // List of initial fighters - will be sorted through to determine who to move to enemies
@@ -66,6 +70,12 @@
 
     // On/off switch for attack button
     var gameplay = true;
+
+
+    // Present inital fighter HP
+    for (var i = 0; i < fighters.length; i++) {
+        $(fighters[i].healthID).text("HP: " + fighters[i].HP)
+    }
 
 
     // Sorts the fighters after the player chooses their character
@@ -90,9 +100,12 @@
         if (gameplay === true) {
             // Check if player fighter and defender have been chosen
             if (defenderChosen === true) {
+                // $(fighters[i].button).attr('id', 'enemy-' + fighters[i].sortId) <-- not sure why this is here, think it can be removed
                 // First reduce enemy HP and increase player AP
                 yourFighter.AP += yourFighter.APIncrement;
                 defender.HP -= yourFighter.AP;
+                $(defender.healthID).text("HP: " + defender.HP)
+
 
                 // Check if enemy is defeated
                 if (defender.HP <= 0) {
@@ -113,6 +126,7 @@
                 // Defender hits back
                 else if (defender.HP > 1) {
                     yourFighter.HP -= defender.CAP;
+                    $(yourFighter.healthID).text("HP: " + yourFighter.HP)
                     if (yourFighter.HP <= 0) {
                         gameplay = false;
                         $("#combatlog").html("You lose!");
