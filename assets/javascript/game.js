@@ -1,5 +1,13 @@
 (function () {
 
+    // Music - didn't work before because it was trying to play the audio before it was loaded.  The function below works around that.
+    var audio = new Audio("assets/music/HatenoDay.mp3");
+
+    audio.onloadeddata = function () {
+        audio.play();
+    }
+
+
     // Establish variables
 
     // Fighters
@@ -44,17 +52,20 @@
     }
 
     // List of initial fighters - will be sorted through to determine who to move to enemies
-    var fighters = [fighter1, fighter2, fighter3, fighter4]
+    var fighters = [fighter1, fighter2, fighter3, fighter4];
 
     // Player's character
-    var yourFighter = {}
+    var yourFighter = {};
 
     // Defender
-    var defender = {}
+    var defender = {};
 
     // Determines if a defender has been chosen or not
-    var fighterChosen = false
-    var defenderChosen = false
+    var fighterChosen = false;
+    var defenderChosen = false;
+
+    // On/off switch for attack button
+    var gameplay = true;
 
 
     // Sorts the fighters after the player chooses their character
@@ -63,7 +74,9 @@
         fighters.splice($.inArray(yourFighter, fighters), 1);
         // Adds the player's choice to the 'yourCharacter' div and changes its id (not sure its id needs to change though?)
         $("#yourCharacter").append($(yourFighter.button))
-        $(yourFighter.button).attr('id', 'player-' + yourFighter.sortId)
+        $(yourFighter.button).removeClass('btn-primary').addClass('btn-success');
+        $(yourFighter.button).attr('id', 'player-' + yourFighter.sortId);
+
         // Sorts through the remaining fighters in the 'fighters' array and appends them to the 'enemies' element
         for (var i = 0; i < fighters.length; i++) {
             $("#enemies").append($(fighters[i].button))
@@ -74,48 +87,57 @@
 
     // Plays out the fight of the game
     function attack() {
-        // Check if player fighter and defender have been chosen
-        if (defenderChosen === true) {
-            // First reduce enemy HP and increase player AP
-            yourFighter.AP += yourFighter.APIncrement;
-            defender.HP -= yourFighter.AP;
+        if (gameplay === true) {
+            // Check if player fighter and defender have been chosen
+            if (defenderChosen === true) {
+                // First reduce enemy HP and increase player AP
+                yourFighter.AP += yourFighter.APIncrement;
+                defender.HP -= yourFighter.AP;
 
-            // Check if enemy is defeated
-            if (defender.HP <= 0) {
-                // Remove the defeated enemy from the 'defeated' section and the 'fighters' array
-                $("#defender").empty();
-                fighters.splice($.inArray(defender, fighters), 1);
-                
-                // Check to see if all fighters have been defeated
-                if (fighters.length > 0) {
-                    defenderChosen = false;
-                    $("#combatlog").html("You have defeated " + defender.name + "! Choose another enemy to fight");
-                } else {
-                    $("#combatlog").html("You win!");
+                // Check if enemy is defeated
+                if (defender.HP <= 0) {
+                    // Remove the defeated enemy from the 'defeated' section and the 'fighters' array
+                    $("#defender").empty();
+                    fighters.splice($.inArray(defender, fighters), 1);
+
+                    // Check to see if all fighters have been defeated
+                    if (fighters.length > 0) {
+                        defenderChosen = false;
+                        $("#combatlog").html("You have defeated " + defender.name + "! Choose another enemy to fight");
+                    } else {
+                        $("#combatlog").html("You win!");
+                    }
                 }
+
+
+                // Defender hits back
+                else if (defender.HP > 1) {
+                    yourFighter.HP -= defender.CAP;
+                    if (yourFighter.HP <= 0) {
+                        gameplay = false;
+                        $("#combatlog").html("You lose!");
+                    } else {
+                        $("#combatlog").html("You attack " + defender.name + " for " + yourFighter.AP + " damage!<br>" + defender.name + " attacks you for " + defender.CAP + " damage!");
+                    }
+
+                }
+
+                // Check if player defeated? Not sure of order yet
+
+                // Check that neither player or defender are defeated
+                console.log("Your HP: " + yourFighter.HP)
+                console.log("Your attack power: " + yourFighter.AP)
+                console.log("Enemy HP: " + defender.HP)
+                // $("#combatlog").html("you fought a nerd")
             }
 
-            // Defender hits back
-            else if (defender.HP > 1) {
-                yourFighter.HP -= defender.CAP;
-                $("#combatlog").html("You attack " + defender.name + " for " + yourFighter.AP + " damage!<br>" + defender.name + " attacks you for " + defender.CAP + " damage!");
-            }
-
-            // Check if player defeated? Not sure of order yet
-
-            // Check that neither player or defender are defeated
-            console.log("Your HP: " + yourFighter.HP)
-            console.log("Your attack power: " + yourFighter.AP)
-            console.log("Enemy HP: " + defender.HP)
-            // $("#combatlog").html("you fought a nerd")
-        }
-
-        // Display message if fighter/defender haven't been chosen
-        else {
-            if (fighterChosen === false) {
-                $("#combatlog").html("You must choose a fighter first")
-            } else if (defenderChosen === false) {
-                $("#combatlog").html("You must choose an opponent to fight")
+            // Display message if fighter/defender haven't been chosen
+            else {
+                if (fighterChosen === false) {
+                    $("#combatlog").html("You must choose your character")
+                } else if (defenderChosen === false) {
+                    $("#combatlog").html("You must choose an opponent to fight")
+                }
             }
         }
     }
