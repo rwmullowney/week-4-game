@@ -92,6 +92,7 @@
         // Removes the player's choice from the 'fighters' array
         fighters.splice($.inArray(yourFighter, fighters), 1);
         // Adds the player's choice to the 'yourCharacter' div and changes its id (not sure its id needs to change though?)
+        $("#yourCharacterHeading").html("<h2>Your Character</h2>")
         $("#yourCharacter").append($(yourFighter.button))
         $('#yourCharacter').addClass('button-height');
         $(yourFighter.button).removeClass('btn-primary').addClass('btn-success');
