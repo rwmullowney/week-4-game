@@ -76,3 +76,18 @@ p{
     font-weight: lighter;
     height: 220px;
 }
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.fade-in {
+    animation-name: fadeIn;
+    animation-duration: 4s;
+}

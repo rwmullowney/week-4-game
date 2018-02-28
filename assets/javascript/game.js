@@ -104,7 +104,7 @@
             $(fighters[i].button).attr('id', 'enemy-' + fighters[i].sortId)
         }
         $('#enemies').addClass('button-height');
-        $('#characterSelect').remove()
+        $('.characterSelect').remove()
     }
 
     // Plays out the fight of the game
