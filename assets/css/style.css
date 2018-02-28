@@ -46,6 +46,11 @@ h1{
     height: auto;
 }
 
+/* .combat-log{
+    background-color: black;
+    opacity: 0.5;
+} */
+
 
 
 /* Assigns div height so buttons take same vertical space */
@@ -60,10 +65,14 @@ h1{
 }
 
 /* Font changes */
-h1, h2, h3, h4{
+h1, h2, h3, h4, p{
     font-family: 'botw';
 }
 
 p{
     font-size: 32px;
+    color: rgb(184, 158, 105);
+    background: rgba(0, 0, 0, 0.7);
+    font-weight: lighter;
+    height: 220px;
 }
