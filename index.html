@@ -12,41 +12,65 @@
 </head>
 
 
-<body>
-    <h1>RPG Game!</h1>
-
-    <div id='characterSelect'>
-        <h4>Choose your character:</h4>
-        <div class=button-height>
-            <button class='btn btn-primary' id="button1" value='fighter1'>
-                <div id='fighter1HP'></div>
-                <img class='fighter-image' src="./assets/images/bokoblin.png" alt="A Bokoblin wielding a club"> Bokoblin
-            </button>
-            <button class='btn btn-primary' id="button2" value='fighter2'>
-                <div id='fighter2HP'></div>
-                <img class='fighter-image' src="./assets/images/zelda.png" alt="Princess Zelda">Zelda</button>
-            <button class='btn btn-primary' id="button3" value='fighter3'>
-                <div id='fighter3HP'></div>
-                <img class='fighter-image' src="./assets/images/link.png" alt="Link standing with a bow">Link</button>
-            <button class='btn btn-primary' id="button4" value='fighter4'>
-                <div id='fighter4HP'></div>
-                <img class='fighter-image' src="./assets/images/guardian.png" alt="A Bokoblin">Guardian</button>
+<body class="m-0">
+    <!-- Page header -->
+    <div class="container">
+        <div class="row header m-0 justify-content-center">
+            <img class="logo " src="assets/images/botwlogo.png" alt="Breath of the Wild Logo">
+            <div class="justify-content-bottom">   <!-- Can't seem to get this h1 to move -->
+                <h1>RPG Game</h1>
+            </div>
         </div>
     </div>
 
-    <h2>Your Character</h2>
-    <div id="yourCharacter" class=button-height></div>
 
-    <h3>Enemies</h3>
-    <div id="enemies" class=button-height></div>
 
-    <h3>Fight Section</h3>
-    <button type="button" id="attack" class="btn btn-danger">Attack</button>
+    <div class="container">
+        <div class="row">
+            <!-- Player Character and Enemies -->
+            <section class="col-7">
+                <div id='characterSelect'>
+                    <h4>Choose your character</h4>
+                    <div class=button-height>
+                        <button class='btn btn-primary' id="button1" value='fighter1'>
+                            <div id='fighter1HP'></div>
+                            <img class='fighter-image' src="./assets/images/bokoblin.png" alt="A Bokoblin wielding a club"> Bokoblin
+                        </button>
+                        <button class='btn btn-primary' id="button2" value='fighter2'>
+                            <div id='fighter2HP'></div>
+                            <img class='fighter-image' src="./assets/images/zelda.png" alt="Princess Zelda">Zelda</button>
+                        <button class='btn btn-primary' id="button3" value='fighter3'>
+                            <div id='fighter3HP'></div>
+                            <img class='fighter-image' src="./assets/images/link.png" alt="Link standing with a bow">Link</button>
+                        <button class='btn btn-primary' id="button4" value='fighter4'>
+                            <div id='fighter4HP'></div>
+                            <img class='fighter-image' src="./assets/images/guardian.png" alt="A Bokoblin">Guardian</button>
+                    </div>
+                </div>
 
-    <h3>Defender</h3>
-    <div id="defender" class=button-height></div>
+<br>
+                <h2>Your Character</h2>
+                <div id="yourCharacter"></div>
 
-    <div id="combatlog"></div>
+                <br>
+                <h3>Enemies</h3>
+                <div id="enemies"></div>
+
+                <br>
+                <h3>Fight Section</h3>
+                <button type="button" id="attack" class="btn btn-danger">Attack</button>
+            </section>
+
+            <!-- Info section -->
+            <section class="col-5">
+                <h3>Defender</h3>
+                <div id="defender" class=button-height></div>
+                <br>
+                <div id="combatlog"></div>
+            </section>
+        </div>
+    </div>
+
 </body>
 
 <!-- jQuery -->

@@ -8,7 +8,27 @@ body{
 }
 
 
+/* Header */
+.header{
+    max-height: 250px;
+}
+
+.logo{
+    display: block;
+    max-height: 250px;
+}
+
+h1{
+    
+    font-size: 64px;
+    color: rgb(184, 158, 105);
+    text-align: bottom;
+}
+
+
 /* Fighter info */
+
+
 .fighter-image{
     max-height: 100px;
     max-width: 125px;
@@ -22,7 +42,28 @@ body{
 
 
 
+#attack{
+    height: auto;
+}
+
+
+
 /* Assigns div height so buttons take same vertical space */
 .button-height{
     height: 165px;
+}
+
+
+@font-face {
+    font-family: 'botw';
+    src: url(../font/botw.otf) format('opentype');
+}
+
+/* Font changes */
+h1, h2, h3, h4{
+    font-family: 'botw';
+}
+
+p{
+    font-size: 32px;
 }

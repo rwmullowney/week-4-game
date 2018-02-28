@@ -8,12 +8,15 @@
         intro.play();
     }
 
-    intro.addEventListener('ended', function(){
+    intro.addEventListener('ended', function () {
         audio.play();
     });
     // Sound when 'attack' is clicked <-- not sure I want to include this yet
     // var sword = new Audio("assets/music/attack.mp3");
 
+
+    // Reset button stuff
+    // function initGame() {}
 
     // Establish variables
 
@@ -90,6 +93,7 @@
         fighters.splice($.inArray(yourFighter, fighters), 1);
         // Adds the player's choice to the 'yourCharacter' div and changes its id (not sure its id needs to change though?)
         $("#yourCharacter").append($(yourFighter.button))
+        $('#yourCharacter').addClass('button-height');
         $(yourFighter.button).removeClass('btn-primary').addClass('btn-success');
         $(yourFighter.button).attr('id', 'player-' + yourFighter.sortId);
 
@@ -99,6 +103,7 @@
             // Changes fighter button id to 'enemy-' + their previous id, so they won't follow the previous button rules for "#buttonx"
             $(fighters[i].button).attr('id', 'enemy-' + fighters[i].sortId)
         }
+        $('#enemies').addClass('button-height');
         $('#characterSelect').remove()
     }
 
@@ -107,7 +112,7 @@
         if (gameplay === true) {
             // Check if player fighter and defender have been chosen
             if (defenderChosen === true) {
-                sword.play();
+                // sword.play();
                 // $(fighters[i].button).attr('id', 'enemy-' + fighters[i].sortId) <-- not sure why this is here, think it can be removed
                 // First reduce enemy HP and increase player AP
                 yourFighter.AP += yourFighter.APIncrement;
@@ -127,9 +132,7 @@
                         $("#combatlog").html("You have defeated " + defender.name + "! Choose another enemy to fight");
                     } else {
                         $("#combatlog").html("You win!");
-                        console.log(fighter1)
-                        console.log(fighter2)
-                        console.log(fighter3)
+                        $("#combatlog").append("<br><button>Reset Game</button>");
                     }
                 }
 
@@ -141,19 +144,12 @@
                     if (yourFighter.HP <= 0) {
                         gameplay = false;
                         $("#combatlog").html("You lose!");
+                        $("#combatlog").append("<br><button>Reset Game</button>");
                     } else {
                         $("#combatlog").html("You attack " + defender.name + " for " + yourFighter.AP + " damage!<br>" + defender.name + " attacks you for " + defender.CAP + " damage!");
                     }
 
                 }
-
-                // Check if player defeated? Not sure of order yet
-
-                // Check that neither player or defender are defeated
-                console.log("Your HP: " + yourFighter.HP)
-                console.log("Your attack power: " + yourFighter.AP)
-                console.log("Enemy HP: " + defender.HP)
-                // $("#combatlog").html("you fought a nerd")
             }
 
             // Display message if fighter/defender haven't been chosen
